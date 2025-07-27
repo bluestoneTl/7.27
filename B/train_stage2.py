@@ -15,7 +15,7 @@ from torch.utils.tensorboard import SummaryWriter
 from diffbir.model import ControlLDM, SwinIR, Diffusion
 from diffbir.utils.common import instantiate_from_config, to, log_txt_as_img
 from diffbir.sampler import SpacedSampler
-# python train_stage2.py --config configs/train/train_stage2.yaml --train_stage 1
+# python train_stage2.py --config configs/train/train_stage2.yaml --train_stage 1 > training_log.txt 2>&1
 '''
 python train_stage2.py --config configs/train/train_stage2.yaml \
 --train_stage 2 \
@@ -107,8 +107,8 @@ def main(args) -> None:
     #         )
 
     swinir: SwinIR = instantiate_from_config(cfg.model.swinir)
-    # sd = torch.load(cfg.train.swinir_path, map_location="cpu")
-    sd = torch.load(cfg.train.sd_path, map_location="cpu", weights_only=False)["state_dict"]
+    sd = torch.load(cfg.train.swinir_path, map_location="cpu")
+    # sd = torch.load(cfg.train.sd_path, map_location="cpu", weights_only=False)["state_dict"]
     if "state_dict" in sd:
         sd = sd["state_dict"]
     sd = {
