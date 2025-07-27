@@ -106,7 +106,8 @@ def main(args) -> None:
     #         )
 
     swinir: SwinIR = instantiate_from_config(cfg.model.swinir)
-    sd = torch.load(cfg.train.swinir_path, map_location="cpu")
+    # sd = torch.load(cfg.train.swinir_path, map_location="cpu")
+    sd = torch.load(cfg.train.sd_path, map_location="cpu", weights_only=False)["state_dict"]
     if "state_dict" in sd:
         sd = sd["state_dict"]
     sd = {
