@@ -58,7 +58,8 @@ def main(args) -> None:
 
     # Create model:
     cldm: ControlLDM = instantiate_from_config(cfg.model.cldm)
-    sd = torch.load(cfg.train.sd_path, map_location="cpu")["state_dict"]
+    # sd = torch.load(cfg.train.sd_path, map_location="cpu")["state_dict"]
+    sd = torch.load(cfg.train.sd_path, map_location="cpu", weights_only=False)["state_dict"]
     unused, missing = cldm.load_pretrained_sd(sd)
     if accelerator.is_main_process:
         print(
